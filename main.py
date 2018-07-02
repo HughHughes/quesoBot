@@ -27,5 +27,3 @@ async def on_message(message):
         await asyncio.sleep(1)
         await client.delete_message(bot_message)
     return
-
-client.run("NDYzMDgxNjA0MTE0NTQ2Njg4.Dhsuhg.tJBiTxcu6btvbCH2Vl4ShL1DhKc") 
