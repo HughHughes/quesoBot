@@ -27,3 +27,5 @@ async def on_message(message):
         await asyncio.sleep(1)
         await client.delete_message(bot_message)
     return
+
+client.run("")
