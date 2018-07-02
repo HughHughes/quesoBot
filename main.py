@@ -1,5 +1,5 @@
 # main.py runs the bot for the queso discord server which prevents discussions not about cheese
-# Copyright Hugh Hughes and 1682 (2018) all rights reserved
+# Copyright Hugh Hughes and Juan Hughes (2018) all rights reserved
 
 import discord
 from discord.ext import commands
@@ -27,5 +27,8 @@ async def on_message(message):
         await asyncio.sleep(1)
         await client.delete_message(bot_message)
     return
+with open('token.txt') as t:
+    token = t.readlines()
+    
+client.run(token[0]) 
 
-client.run("")
