@@ -9,6 +9,7 @@ import random
 Client = discord.Client() 
 client = commands.Bot(command_prefix = "?")
 
+
 @client.event 
 async def on_ready():
     print("Bot is online and connected to Discord")
@@ -18,6 +19,12 @@ with open('waPhr.txt') as w:
     for line in w:
         waPhr.append(line.strip('\n'))
 
+bypass_cheese = []
+with open('byCheese.txt') as b:
+    for line in b:
+        bypass_cheese.append(line.strip('\n'))
+
+
 allowedWords = []
 with open('cheeseWords.txt') as f:
     for line in f:
@@ -26,8 +33,9 @@ with open('cheeseWords.txt') as f:
 @client.event
 async def on_message(message):
     if not any(word.lower() in message.content.lower() for word in allowedWords):
-        await client.delete_message(message)
-        await client.send_message(message.author, "**Your message is not about cheese! \nTu mensaje no es sobre queso!**")
+        if not message.author.id in bypass_cheese:
+         await client.delete_message(message)
+         await client.send_message(message.author, "**Your message is not about cheese! \nTu mensaje no es sobre queso!**")
 
     if message.content.startswith(".cheese"):
      msg = random.choice(waPhr)
