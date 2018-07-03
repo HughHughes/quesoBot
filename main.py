@@ -4,6 +4,7 @@
 import discord
 from discord.ext import commands
 import asyncio
+import random
 
 Client = discord.Client() 
 client = commands.Bot(command_prefix = "?")
@@ -11,6 +12,11 @@ client = commands.Bot(command_prefix = "?")
 @client.event 
 async def on_ready():
     print("Bot is online and connected to Discord")
+
+waPhr = []
+with open('waPhr.txt') as w:
+    for line in w:
+        waPhr.append(line.strip('\n'))
 
 allowedWords = []
 with open('cheeseWords.txt') as f:
@@ -21,8 +27,19 @@ with open('cheeseWords.txt') as f:
 async def on_message(message):
     if not any(word.lower() in message.content.lower() for word in allowedWords):
         await client.delete_message(message)
-        await client.send_message(message.author, "Your message is not about cheese! \nTu mensaje no es sobre queso!")
+        await client.send_message(message.author, "**Your message is not about cheese! \nTu mensaje no es sobre queso!**")
+
+    if message.content.startswith(".cheese"):
+     msg = random.choice(waPhr)
+     await client.send_message(message.channel, msg)
+
+    
     return
+
+
+
+
+
 with open('token.txt') as t:
     token = t.readlines()
     
