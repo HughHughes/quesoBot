@@ -1,5 +1,5 @@
 # main.py runs the bot for the queso discord server which prevents discussions not about cheese
-# Copyright Hugh Hughes and Juan Hughes (2018) all rights reserved
+# Copyright Hugh Hughes and 1682 (2018) all rights reserved
 
 import discord
 from discord.ext import commands
@@ -21,14 +21,9 @@ with open('cheeseWords.txt') as f:
 async def on_message(message):
     if not any(word.lower() in message.content.lower() for word in allowedWords):
         await client.delete_message(message)
-        await client.send_message(message.author, "**Your message is not about cheese! Tu mensaje no es sobre queso!**")
-        bot_message = await client.send_message(message.channel,
-                                                "Your message is not about cheese! Tu mensaje no es sobre queso!")
-        await asyncio.sleep(1)
-        await client.delete_message(bot_message)
+        await client.send_message(message.author, "Your message is not about cheese! \nTu mensaje no es sobre queso!")
     return
 with open('token.txt') as t:
     token = t.readlines()
     
 client.run(token[0]) 
-
