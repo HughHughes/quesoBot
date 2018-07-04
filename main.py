@@ -1,4 +1,4 @@
-# main.py runs the bot for the queso discord server which prevents discussions not about cheese
+# main.py runs the bot for the queso discord server
 # Copyright Hugh Hughes and 1682 (2018) all rights reserved
 
 import discord
@@ -38,17 +38,19 @@ async def on_message(message):
          await client.send_message(message.author, "**Your message is not about cheese! \nTu mensaje no es sobre queso!**")
 
     if message.content.startswith(".cheese"):
-     msg = random.choice(waPhr)
-     await client.send_message(message.channel, msg)
+        msg = random.choice(waPhr)
+        await client.send_message(message.channel, msg)
 
-    
+    if message.content.startswith('!clear'):
+        if message.author.id in bypass_cheese:
+            tmp = await client.send_message(message.channel, 'Clearing messages...')
+            async for msg in client.logs_from(message.channel):
+                await client.delete_message(msg)
+
     return
-
-
-
-
 
 with open('token.txt') as t:
     token = t.readlines()
+
     
 client.run(token[0]) 
