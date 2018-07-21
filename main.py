@@ -1,6 +1,8 @@
 # main.py runs the bot for the queso discord server
 # Copyright Hugh Hughes and 1682 (2018) all rights reserved
 
+# ref: https://discordpy.readthedocs.io/en/rewrite/ext/commands/commands.html
+
 import discord
 from discord.ext import commands
 import asyncio
