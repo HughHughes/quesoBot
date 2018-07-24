@@ -48,10 +48,10 @@ async def on_message(message):
             async for msg in client.logs_from(message.channel):
                 await client.delete_message(msg)
 
-    if message.content.startswith('xd'):
-        await client.send_message(message.channel,'Xavier Dolan')
-        await client.send_file(message.channel,"./xavierDolan.jpg")
-        await client.delete_message(message)
+    if message.content.startswith('xd.png'):
+        if message.author.id in bypass_cheese:
+         await client.send_file(message.channel,"./xavierDolan.png")
+         await client.delete_message(message)
 
     return
 
