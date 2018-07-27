@@ -8,12 +8,33 @@ from discord.ext import commands
 import asyncio
 import random
 
+BOT_PREFIX = ("!","?")
+
 Client = discord.Client() 
-client = commands.Bot(command_prefix = "?")
+client = commands.Bot(command_prefix = BOT_PREFIX)
+# https://www.devdungeon.com/content/make-discord-bot-python
 
 @client.event 
 async def on_ready():
     print("Bot is online and connected to Discord")
+
+# testing
+@client.command(name='8ball',
+                description="Answers a yes/no question.",
+                brief="Answers from the beyond.",
+                aliases=['eight_ball', 'eightball', '8-ball'],
+                pass_context=True)
+async def eight_ball(context):
+    possible_responses = [
+        'That is a resounding no',
+        'It is not looking likely',
+        'Too hard to tell',
+        'It is quite possible',
+        'Definitely',
+    ]
+    await client.say(random.choice(possible_responses) + ", " + context.message.author.mention)
+# end testing
+
 
 waPhr = []
 with open('waPhr.txt') as w:
@@ -34,7 +55,6 @@ bypass_cheese = []
 with open('byCheese.txt') as b:
     for line in b:
         bypass_cheese.append(line.strip('\n'))
-
 
 allowedWords = []
 with open('cheeseWords.txt') as f:
@@ -73,11 +93,7 @@ async def on_message(message):
 
     return
 
-
-
-
 with open('token.txt') as t:
     token = t.readlines()
-
     
 client.run(token[0]) 
