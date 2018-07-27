@@ -20,6 +20,16 @@ with open('waPhr.txt') as w:
     for line in w:
         waPhr.append(line.strip('\n'))
 
+waGore = []
+with open('waGore.txt') as w:
+    for line in w:
+        waGore.append(line.strip('\n'))
+
+waPorn = []
+with open('waPorn.txt') as w:
+    for line in w:
+        waPorn.append(line.strip('\n'))
+
 bypass_cheese = []
 with open('byCheese.txt') as b:
     for line in b:
@@ -42,6 +52,14 @@ async def on_message(message):
         msg = random.choice(waPhr)
         await client.send_message(message.channel, msg)
 
+    if message.content.startswith(".gore"):
+        msg = random.choice(waGore)
+        await client.send_message(message.channel, msg)
+
+    if message.content.startswith(".porn"):
+        msg = random.choice(waPorn)
+        await client.send_message(message.channel, msg)
+
     if message.content.startswith('!clear'):
         if message.author.id in bypass_cheese:
             tmp = await client.send_message(message.channel, 'Clearing messages...')
@@ -54,6 +72,9 @@ async def on_message(message):
          await client.delete_message(message)
 
     return
+
+
+
 
 with open('token.txt') as t:
     token = t.readlines()
