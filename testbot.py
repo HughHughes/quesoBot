@@ -23,17 +23,6 @@ with open('cheeseWords.txt') as f:
     for line in f:
         allowedWords.append(line.strip('\n'))
 
-@client.event
-async def on_message(message): # on_message prevents client.event
-    pass
-#@client.event
-#async def on_message(message):
-#    if not any(word.lower() in message.content.lower() for word in allowedWords):
-#        if not message.author.id in bypass_cheese:
-#            await client.delete_message(message)
-#            await client.send_message(message.author,
-#                                      "**Your message is not about cheese! \nTu mensaje no es sobre queso!**")
-
 @client.command(name='8ball',
                 description="Answers a yes/no question.",
                 brief="Answers from the beyond.",
@@ -89,8 +78,73 @@ async def list_servers():
             print(server.name)
         await asyncio.sleep(600)
 
-
 client.loop.create_task(list_servers())
+
+
+waPhr = []
+with open('waPhr.txt') as w:
+    for line in w:
+        waPhr.append(line.strip('\n'))
+
+waGore = []
+with open('waGore.txt') as w:
+    for line in w:
+        waGore.append(line.strip('\n'))
+
+waPorn = []
+with open('waPorn.txt') as w:
+    for line in w:
+        waPorn.append(line.strip('\n'))
+
+bypass_cheese = []
+with open('byCheese.txt') as b:
+    for line in b:
+        bypass_cheese.append(line.strip('\n'))
+
+allowedWords = []
+with open('cheeseWords.txt') as f:
+    for line in f:
+        allowedWords.append(line.strip('\n'))
+
+@client.event
+async def on_message(message):
+    if not any(word.lower() in message.content.lower() for word in allowedWords):
+        if not message.author.id in bypass_cheese:
+         await client.delete_message(message)
+         await client.send_message(message.author, "**Your message is not about cheese! \nTu mensaje no es sobre queso!**")
+
+    if message.content.startswith(".cheese"):
+        msg = random.choice(waPhr)
+        await client.send_message(message.channel, msg)
+
+    if message.content.startswith(".gore"):
+        msg = random.choice(waGore)
+        await client.send_message(message.channel, msg)
+
+    if message.content.startswith(".porn"):
+        msg = random.choice(waPorn)
+        await client.send_message(message.channel, msg)
+
+    if message.content.startswith('!clear'):
+        if message.author.id in bypass_cheese:
+            tmp = await client.send_message(message.channel, 'Clearing messages...')
+            async for msg in client.logs_from(message.channel):
+                await client.delete_message(msg)
+
+    if message.content.startswith('xd.png'):
+        if message.author.id in bypass_cheese:
+         await client.send_file(message.channel,"./xavierDolan.png")
+         await client.delete_message(message)
+
+    await client.process_commands(message)
+#@client.event
+#async def on_message(message):
+#    if not any(word.lower() in message.content.lower() for word in allowedWords):
+#        if not message.author.id in bypass_cheese:
+#            await client.delete_message(message)
+#            await client.send_message(message.author,
+#                                      "**Your message is not about cheese! \nTu mensaje no es sobre queso!**")
+
 
 with open('token.txt') as t:
     token = t.readlines()
